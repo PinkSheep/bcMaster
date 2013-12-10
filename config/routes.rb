@@ -1,6 +1,13 @@
 BcMaster::Application.routes.draw do
-  get "main/index"
-  get "main/success"
+  get "login/login"
+
+  root :to => 'main#index'
+
+  # catchall route
+  match ':controller(/:action(/:id(.:format)))', via: [:get, :post]
+
+  #get "main/index"
+  #get "main/success"
   get "main/signup"
 
   # The priority is based upon order of creation: first created -> highest priority.
