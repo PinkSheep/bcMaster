@@ -10,6 +10,6 @@ class LoginController < ApplicationController
     api = YAML.load_file("./api_keys.yml")
     @btce_api = api
     @btce_info = Btce::Info.new
-    @btce_trade = Btce::Trade.new(api)
+    @btce_trade = Btce::Trade.new
   end
 end
