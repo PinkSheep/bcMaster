@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>bcMaster: Bitcoin Trading Client</title>
+    <meta charset="utf-8">
+    <%= stylesheet_link_tag "bootstrap.min" %>
+    <%= stylesheet_link_tag "main", :media => "all" %>
+
+    <%= javascript_include_tag "https://code.jquery.com/jquery.js" %>
+    <%= javascript_include_tag "bootstrap.min.js" %>
+    <%= javascript_include_tag "jquery-latest.js" %>
+    <%= javascript_include_tag "jquery.validate.js" %>
+    <%= javascript_include_tag "validate.js" %>
+  </head>
+<body>
+
+  <div id="main">
+
+    <ul class="nav nav-tabs" id="nav-color">
+      <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+      <li><a href="#about" data-toggle="tab">About</a></li>
+      <li><a href="#disclaimer" data-toggle="tab">Disclaimer</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="home">
+
+        <%= yield %>
+
+      </div>
+
+      <div class="tab-pane" id="about">
+        <p>Diese Website ist im Rahmen einer Fallstudie im Fach «Methoden der Programmierung» im 3. Semester des berufsbegleitenden Informatikstudiums an der ZHAW Zürich entstanden.</p>
+      </div>
+
+      <div class="tab-pane" id="disclaimer">
+        <p>Wir handeln mit Bitcoins und lehnen jegliche Haftung ab.</p>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
