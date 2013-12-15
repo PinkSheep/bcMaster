@@ -17,10 +17,10 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: pg_testapp_development
+  database: bcMaster_development
   pool: 5
-  username: postgres
-  password: test
+  username: bcMaster
+  password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -46,15 +46,15 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: pg_testapp_test
+  database: bcMaster_test
   pool: 5
-  username: postgres
-  password: test
+  username: bcMaster
+  password:
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: pg_testapp_production
+  database: bcMaster_production
   pool: 5
-  username: postgres
-  password: test
+  username: bcMaster
+  password:
