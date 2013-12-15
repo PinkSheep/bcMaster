@@ -1,17 +1,17 @@
 language: ruby
 
 rvm:
-#- jruby-18mode
-- jruby-19mode
-#- jruby-head
+  - ruby-head
+  - 2.0.0
+  - rbx-2.1.1 
 
-env:
-  matrix:
-    - DB=postgresql
+#env:
+#  matrix:
+#    - DB=postgresql
 #    - DB=sqlite
 #    - DB=mysql
-  global:
-    - "JRUBY_OPTS=-Xcext.enabled=true" 
+#  global:
+#    - "JRUBY_OPTS=-Xcext.enabled=true" 
 
 #matrix:
 #  include:
@@ -27,12 +27,12 @@ env:
 #services:
 #  - pgsql 
 
-before_script:
-  - psql -c 'create database myapp_test;' -U postgres
+#before_script:
+#  - psql -c 'create database myapp_test;' -U postgres
 
-script:
+#script:
 #  - RAILS_ENV=test bundle exec rake --trace db:migrate test
-  - export RAILS_ENV=test
+#  - export RAILS_ENV=test
 #  - rake db:test:load
 #  - bundle exec rake db:create db:migrate
 #  - bundle exec rake db:test:prepare
@@ -43,4 +43,3 @@ deploy:
     master: bcmaster-dev
     stable: bcmaster
   api_key: b3f1822f-cc5b-459f-a7d6-d13ded0db51d
-#    secure: WxmROIY6iXFTw7DbpVWwWo4MZAidW4QrEUYu3m6wJhgVzptkIdayCNcWWj6oEOusHneSDF6si9iP07OynLW1HksZ1JQpn6ffGs+FhDXWDTVq6UImRGgB47Bpu5Md0vzrKaoagVMToVIzxOEnS/fsTTXaE6WA/tpvGnHXRV3HZ+w=
