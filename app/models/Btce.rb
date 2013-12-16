@@ -7,9 +7,9 @@ module Btce
 
   class Drive
     def initialize(settings)
-      @key = settings["key"]
-      @secret = settings["secret"]
-      @uri = URI.parse(settings["url"])
+      @key = settings[:key]
+      @secret = settings[:secret]
+      @uri = URI.parse(settings[:url])
       @nonce = Time.now.to_i
     end
 

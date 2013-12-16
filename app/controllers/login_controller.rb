@@ -7,9 +7,10 @@ class LoginController < ApplicationController
   def login
     @apikey = params[:apikey]
     @password = params[:password]
-    api = YAML.load_file("./api_keys.yml")
-    @btce_api = api
-    @btce_info = Btce::Info.new
+    api = {
+      key: params[:apikey],
+      secret: params[:password],
+      url: params[:domain] }
     @btce_trade = Btce::Trade.new(api)
   end
 end
