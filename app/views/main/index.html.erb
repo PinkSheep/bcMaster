@@ -9,7 +9,7 @@
 </div>
 
 <div id="login">
-  <p id="login-label">Please enter your API Key and your Secret Key of <a href="https://btc-e.com">btc-e.com</a>:</p>
+  <p id="login-label">Please enter your API Key and your Secret Key of <%= link_to 'https://btc-e.com' %>btc-e.com</a>:</p>
   <%= form_tag(controller: 'login', action: 'login', method: 'post', id: 'login-form') do %>
     <table>
       <tr>
@@ -19,7 +19,7 @@
         <td><%= password_field_tag(:password, nil, placeholder: 'Secret') %></td>
       </tr>
       <tr>
-        <td><%= submit_tag('Login', id: 'login-button') %> or <%= link_to "Sign up [not yet implemented]", "signup.html"%></td>
+        <td><%= submit_tag('Login', id: 'login-button', :controller => 'login', :method => 'post') %> or <%= link_to "Sign up [not yet implemented]", "signup.html", :method => 'post'%></td>
       </tr>
     </table>
   <% end %>
