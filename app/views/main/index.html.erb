@@ -1,15 +1,16 @@
 <div>
   <table>
     <tr>
-      <td id="title-image" width="300px"><%= image_tag("bcMaster_Logo.jpg", :alt => "bcMaster-Logo", :size => "250x252", :title => "bcMaster-Logo") %>
-</td>
+      <td id="title-image" width="300px">
+        <%= link_to(image_tag("bcMaster_Logo.jpg", :alt => "bcMaster-Logo", :size => "250x252", :title => "bcMaster-Logo")) %>
+      </td>
       <td><h1 id="title">bcMaster: Bitcoin Trading Client</h1></td>
     </tr>
   </table>
 </div>
 
 <div id="login">
-  <p id="login-label">Please enter your API Key and your Secret Key of <%= link_to 'https://btc-e.com' %>btc-e.com</a>:</p>
+<p id="login-label">Please enter your API Key and your Secret Key of <%= link_to "btc-e.com", "https://btc-e.com" %>:</p>
   <%= form_tag(controller: 'login', action: 'login', method: 'post', id: 'login-form') do %>
     <table>
       <tr>
