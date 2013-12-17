@@ -43,21 +43,9 @@ module Btce
     @@methods = %w|getInfo TransHistory TradeHistory ActiveOrders Trade CancelOrder|
 
     @@methods.each do |method|
-        define_method(method) do |options = {}|
-         case method
-         when "getInfo"
-             @drive.connect({method: method})
-         when "TransHistory"
-             @drive.connect({method: method, from: options[:from], count: options[:count], from_id: options[:from_id], end_id: options[:end_id], order: options[:order], since: options[:since], end: options[:end]})
-         when "TradeHistory"
-             @drive.connect({method: method, from: options[:from], count: options[:count], from_id: options[:from_id], end_id: options[:end_id], order: options[:order], since: options[:since], end: options[:end], pair: options[:pair]})
-         when "ActiveOrders"
-             @drive.connect({method: method, pair: options[:pair]})
-         when "Trade"
-             @drive.connect({method: method, pair: options[:pair], type: options[:type], rate: options[:rate], amount: options[:amount]})
-         when "CancelOrder"
-             @drive.connect({method: method, order_id: options[:id]})
-         end
+      define_method(method) do |options = {}|
+        options[:method] = method
+        @drive.connect(options)
       end
     end
   end
