@@ -2,6 +2,7 @@ bcMaster
 ========
 <a href='https://travis-ci.org/kressi/bcMaster?branch=master'><img src='https://travis-ci.org/kressi/bcMaster.png?branch=master' alt='Build Status'/></a>
 <a href='https://coveralls.io/r/kressi/bcMaster'><img src='https://coveralls.io/repos/kressi/bcMaster/badge.png' alt='Coverage Status' /></a>
+<a href="https://codeclimate.com/github/kressi/bcMaster"><img src="https://codeclimate.com/github/kressi/bcMaster.png" /></a>
 
 Im Rahmen der Fallstudie im Fach «Methoden der Programmierung» des berufsbegleitenden
 Bachelor-Studienganges Informatik an der ZHAW Zürich soll ein Bitcoin Trading Client
