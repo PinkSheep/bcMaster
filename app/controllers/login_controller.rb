@@ -7,7 +7,6 @@ class LoginController < ApplicationController
     @password = params[:password]
     @btce_trade = Btce::Trade.new({
       key: params[:apikey],
-      secret: params[:password],
-      url: params[:domain] })
+      secret: params[:password] })
   end
 end

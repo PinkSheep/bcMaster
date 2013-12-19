@@ -4,15 +4,15 @@ require "json"
 
 module Btce
   class Drive
-    def initialize(settings)
-      @key = settings[:key]
-      @secret = settings[:secret]
-      @uri = URI.parse(settings[:url])
+    def initialize(url, key, secret)
+      @key = key
+      @secret = secret
+      @uri = URI.parse(url)
       @nonce = Time.now.to_i
     end
-    def connect(data)
-      @nonce += 1
-      data[:nonce] = @nonce
+    def connect(method, data)
+      data[:nonce] = (@nonce += 1)
+      data[:method] = method
       send_data = data.map{ |x,v| "#{x}=#{v}" }.reduce{|x,v| "#{x}&#{v}" }
       headers = {}
       headers['Key'] = @key
@@ -27,8 +27,11 @@ module Btce
       OpenSSL::HMAC.hexdigest(sha, @secret, data)
     end
     def post_https(uri, port, url, send_data, headers)
-      Net::HTTP.start(uri, port, use_ssl: true) do |request|
-          request.post(url, send_data, headers).body
+      begin
+        Net::HTTP.start(uri, port, use_ssl: true) {
+          |req| req.post(url, send_data, headers).body }
+      rescue
+        nil
       end
     end
   end
