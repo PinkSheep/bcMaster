@@ -19,7 +19,7 @@ module Btce
       headers['Sign'] = hmac(send_data)
       JSON.parse post_https(@uri.host, @uri.port, "/tapi", send_data, headers)
     end
-
+    
     private
 
     def hmac(data)

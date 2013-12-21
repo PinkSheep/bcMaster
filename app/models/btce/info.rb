@@ -4,7 +4,9 @@ require "json"
 
 module Btce
   class Info < API
-    %w|ticker trades depth|.each do |method|
+    # Provides access to open API.
+    # https://hdbtce.kayako.com/Knowledgebase/Article/View/28/4/public-api
+    %w|ticker trades depth fee|.each do |method|
       define_method(method) do |pair|
         get_https(pair, method)
       end

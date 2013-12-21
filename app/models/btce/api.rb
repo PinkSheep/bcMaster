@@ -1,5 +1,6 @@
 module Btce
   class API
+    # https://hdbtce.kayako.com/Knowledgebase/List/Index/4/api
     DOMAIN = "btc-e.com"
     CURRENCY_PAIRS = %w(
       btc_usd btc_eur btc_rur eur_usd ftc_btc
