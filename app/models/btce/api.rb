@@ -10,3 +10,4 @@ module Btce
     CURRENCIES = CURRENCY_PAIRS.map {|pair| pair.split("_")}.flatten.uniq.sort
   end
 end
+ 

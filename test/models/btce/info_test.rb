@@ -14,7 +14,7 @@ class InfoTest < ActiveSupport::TestCase
     assert (ticker['ticker'].keys -
       %w(high low avg vol vol_cur last
       buy sell updated server_time)).empty?,
-      "attributes of ticker are unchanged"
+      "attributes of ticker have not changed"
   end
   test "should return btc_usd trades" do
     trades = @info.trades("btc_usd")
@@ -22,13 +22,18 @@ class InfoTest < ActiveSupport::TestCase
     assert trades.is_a?(Array), "result is an array"
     assert (trades[0].keys -
       %w(date price amount tid price_currency item trade_type )).empty?,
-      "attributes of trades are unchanged"
+      "attributes of trades have not changed"
   end
   test "should return btc_usd market depth" do
-    depth = @info.depth("btc_usd")
+    D = @info.depth("btc_usd").keys
     assert !nil?, "result received"
-    assert !depth.nil?, "result contains ticker"
-    assert (depth.keys - %w(bids asks)).empty?,
+    C = %w(bids asks)
+    assert ((D-C)+(C-D)).empty?,
       "attributes of market depth match"
+  end
+  test "should return trade fees" do
+    fees = @info.fee("btc_ltc")
+    assert !nil?, "result received"
+    assert !fees
   end
 end

@@ -1,16 +1,13 @@
 module Btce
-  class Trade < API
+  class Trade < TradeAPI
     # https://btc-e.com/api/documentation
     def initialize(key, secret)
         @drive = Drive.new("https://#{API::DOMAIN}", key, secret)
     end
-    %w| getInfo
-        TransHistory
-        TradeHistory
-        ActiveOrders
-        Trade
-        CancelOrder |.each do |method|
-      define_method(method) do |options = {}|
+
+    # Overwrite API methods
+    Btce::TradeAPI.public_instance_methods(false).each do |method|
+      define_method(method.to_s) do |options = {}|
         @drive.connect(method, options)
       end
     end

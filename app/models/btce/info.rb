@@ -3,11 +3,11 @@ require "uri"
 require "json"
 
 module Btce
-  class Info < API
+  class Info < InfoAPI
     # Provides access to open API.
     # https://hdbtce.kayako.com/Knowledgebase/Article/View/28/4/public-api
-    %w|ticker trades depth fee|.each do |method|
-      define_method(method) do |pair|
+    Btce::InfoAPI.public_instance_methods(false).each do |method|
+      define_method(method.to_s) do |pair|
         get_https(pair, method)
       end
     end

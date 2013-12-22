@@ -10,7 +10,7 @@ class LoginController < ApplicationController
       trade = Btce::Trade.new(params[:apikey], params[:password])
       if !trade.nil?
         @btce_trade["getInfo"] = trade.getInfo
-        @btce_trade["ActiveOrders"] = trade.ActiveOrders(pair: "btc_usd")
+        @btce_trade["ActiveOrders"] = trade.ActiveOrders
       end
     end
   end
