@@ -32,8 +32,7 @@ class InfoTest < ActiveSupport::TestCase
       "attributes of market depth match"
   end
   test "should return trade fees" do
-    fees = @info.fee("btc_ltc")
+    fee = @info.fee("ltc_usd")
     assert !nil?, "result received"
-    assert !fees
   end
 end
