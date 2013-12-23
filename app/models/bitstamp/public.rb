@@ -3,7 +3,7 @@ require "uri"
 require "json"
 
 module Bitstamp
-  class Ticker < API
+  class Public < API
     %w(ticker order_book transactions eur_usd).each do |method| 
       define_method(method.to_s) do |options={}|
         data = options.map{ |x,v| "#{x}=#{v}" }.reduce{|x,v| "#{x}&#{v}" }
