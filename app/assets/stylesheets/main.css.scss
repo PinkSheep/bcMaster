@@ -23,6 +23,12 @@ h1 {
   padding-bottom: 25px;
 }
 
+h2 {
+  font-size: 250%;
+  //margin-top: -20px;
+  padding-bottom: 15px;
+}
+
 ul {
   list-style-type: none;
 }
@@ -70,5 +76,11 @@ ul {
 #signed-in {
   width: 400px;
   margin-bottom: 100px;
+}
+
+footer {
+  font-size: small;
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
 
