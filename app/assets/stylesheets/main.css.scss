@@ -2,30 +2,43 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+html {
+  background: none repeat scroll 0 0 #E1F5A9;
+  padding: 3%;
+}
+
 body {
   background-color: #FBFBEF;
-  margin: 20px 20px;
+  margin: 0 0;
+  padding: 0 -10px;
   font-size: medium;
   font-family: Tahoma, Verdana, Arial, sans-serif;
 }
 
 #main {
-  margin: 20px 40px;
+  background-color: #FBFBEF;
 }
 
 #nav-color {
-  background-color: #F5F6CE; //#F7F8E0; // #D0F5A9;
+  background-color: #F5F6CE;
+}
+
+.nav nav-tabs {
+  margin: 0;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  background-color: #FBFBEF;
 }
 
 h1 {
   font-size: 300%;
-  padding-top: 50px;
   padding-bottom: 25px;
 }
 
 h2 {
   font-size: 250%;
-  //margin-top: -20px;
   padding-bottom: 15px;
 }
 
@@ -33,16 +46,8 @@ ul {
   list-style-type: none;
 }
 
-#title-image {
-  width: 150px;
-  margin-top: 40px;
-  margin-right: 20px;
-  float: left;
-}
-
 #title {
-  padding-left: 150px;
-  margin-bottom: 150px;
+  margin-bottom: 30px;
 }
 
 .title {
@@ -50,9 +55,7 @@ ul {
 }
 
 #login {
-  margin-top: -80px;
   padding: 20px;
-  float: right;
   background-color: #D8D8D8;
 }
 
@@ -68,9 +71,21 @@ ul {
   width: 420px;
 }
 
+#home {
+  width: 100%;
+  margin-bottom: 50px;
+  padding: 30px 40px;
+}
+
 #about, #disclaimer {
-  width: 630px;
-  margin-top: 50px;
+  width: 65%;
+  margin-bottom: 50px;
+  padding: 30px 40px;
+ }
+
+.text {
+  padding: 20px;
+  background-color: #FFFFFF;
 }
 
 #signed-in {
