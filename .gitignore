@@ -19,5 +19,5 @@ _yardoc
 doc/
 
 #Config file for the database
-#config/database.yml
+config/database.yml
 
