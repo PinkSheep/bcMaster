@@ -6,7 +6,5 @@ class MainController < ApplicationController
 
   protected
   def authorize
-  		
-  	end	
   end
 end
