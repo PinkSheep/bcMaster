@@ -2,20 +2,19 @@ require "net/http"
 require "uri"
 require "json"
 
-module Btce
-  class Info < API
-    # Provides access to open API.
-    # https://hdbtce.kayako.com/Knowledgebase/Article/View/28/4/public-api
-    %w(ticker trades depth fee).each do |method|
-      define_method(method) do |pair|
-        get_https(pair, method)
+module Bitstamp
+  class Public < API
+    %w(ticker order_book transactions eur_usd).each do |method| 
+      define_method(method.to_s) do |options={}|
+        data = options.map{ |x,v| "#{x}=#{v}" }.reduce{|x,v| "#{x}&#{v}" }
+        get_https(data, method)
       end
     end
 
     private
 
     def build_url(method, pair)
-        "https://#{API::DOMAIN}/api/2/#{pair}/#{method}"
+        "https://#{API::DOMAIN}/api/#{method}/"
     end
     def get_https(pair, method)
       uri = URI.parse(build_url(method, pair))
