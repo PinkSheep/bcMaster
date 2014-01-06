@@ -1,0 +1,15 @@
+postgres: &postgres
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: rails 
+  password: rails
+  host: localhost
+
+development:
+  <<: *postgres
+  database: bcmaster_dev
+
+test:
+  <<: *postgres
+  database: bcmaster
