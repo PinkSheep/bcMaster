@@ -2,4 +2,3 @@ test:
   adapter: postgresql
   database: bcmaster_test
   username: postgres
-  
