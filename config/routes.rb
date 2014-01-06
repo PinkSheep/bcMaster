@@ -1,4 +1,5 @@
 BcMaster::Application.routes.draw do
+  get "trade/trade"
   get "login/login"
 
   root :to => 'main#index'
