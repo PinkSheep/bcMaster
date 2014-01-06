@@ -8,6 +8,8 @@ module Btce
       nmc_usd nvc_btc nvc_usd ppc_btc ppc_usd
       trc_btc usd_rur xpm_btc)
     CURRENCIES = CURRENCY_PAIRS.map {|pair| pair.split("_")}.flatten.uniq.sort
+    def api_methods
+      self.class.instance_methods(false)
+    end
   end
 end
- 

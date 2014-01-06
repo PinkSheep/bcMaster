@@ -6,8 +6,8 @@ class LoginController < ApplicationController
     @btce_trade = {}
     @apikey = params[:apikey]
     @password = params[:password]
-    if !params[:apikey].nil? && !params[:password].nil?
-      trade = Btce::Trade.new(params[:apikey], params[:password])
+    if !@apikey.nil? && !@password.nil?
+      trade = Btce::Trade.new(@apikey, @password)
       if !trade.nil?
         init_session(params[:apikey])
         @btce_trade["getInfo"] = trade.getInfo
