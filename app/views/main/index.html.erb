@@ -8,6 +8,7 @@
         <%= image_tag("bcMaster_Logo.png", :alt => "bcMaster-Logo", :size => "200x202", :title => "bcMaster-Logo") %>
       </td>
         <td>
+          <p> BTC Buy: <%= @btce_buy %> USD Sell: <%= @btce_sell %> USD</p>
           <div id="login">
             <p id="login-label">Please enter your API Key and your Secret Key of <%= link_to "btc-e.com", "https://btc-e.com" %>:</p>
           <%= form_tag(controller: 'login', action: 'login', method: 'post', id: 'login-form') do %>
@@ -29,9 +30,6 @@
         </div>
 
       </td>
-    </tr>
-    <tr>
-      <td><%= @btce_info.ticker("btc_usd") %></td>
     </tr>
   </table>
 
