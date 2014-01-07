@@ -9,7 +9,6 @@ class LoginController < ApplicationController
     if !@apikey.nil? && !@password.nil?
       trade = Btce::Trade.new(@apikey, @password)
       if !trade.nil?
-#        init_session(params[:apikey])
         init_session(trade)
         @btce_trade["getInfo"] = trade.getInfo
         @btce_trade["ActiveOrders"] = trade.ActiveOrders
@@ -18,8 +17,7 @@ class LoginController < ApplicationController
   end
 
   private
-  def init_session(key)
-    @sessiondata = key
-    session[:bcmaster] = @sessiondata
+  def init_session(trade)
+    session[:btce_trade] = trade
   end
 end
