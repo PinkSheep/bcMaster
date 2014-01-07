@@ -1,4 +1,4 @@
 class TradeController < ApplicationController
-  def trade
+  def index
   end
 end
