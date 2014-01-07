@@ -8,7 +8,7 @@ class MainController < ApplicationController
       @btce_buy = btce_ticker["ticker"]["buy"]
       @btce_sell = btce_ticker["ticker"]["sell"]
     end
-    
+
     @btce_info = Btce::Info.new
     @btce_trade = {}
     @apikey = params[:apikey]
@@ -36,15 +36,6 @@ class MainController < ApplicationController
   def init_session(key,secret)
   	key_array = [key,secret]
     session[:bcmaster] = key_array
-=======
-    btce_ticker = Btce::Info.new.ticker("btc_usd")
-    @btce_buy
-    @btce_sell
-    unless btce_ticker.nil?
-      @btce_buy = btce_ticker["ticker"]["buy"]
-      @btce_sell = btce_ticker["ticker"]["sell"]
-    end
->>>>>>> 46fd4f7da6d3a0f395e29f557d61edd729588c25
   end
 
   protected
