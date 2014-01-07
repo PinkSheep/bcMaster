@@ -1,8 +1,7 @@
 class MainController < ApplicationController
-  # before_action :authorize
+  before_action :authorize
 
   def index
-  	authorize
   	btce_ticker = Btce::Info.new.ticker("btc_usd")
     @btce_buy
     @btce_sell
@@ -49,7 +48,7 @@ class MainController < ApplicationController
   	  @login_message = "You are already logged in with the api-key " + @key_array[0] + " from "
   	  @login_form = false
   	else
-  	  @login_message = "Please enter your API Key your Secret Key of "
+  	  @login_message = "Please enter your API Key and your Secret Key of "
   	  @login_form = true
   	end
   end
