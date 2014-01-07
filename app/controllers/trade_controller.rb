@@ -1,7 +1,7 @@
 class TradeController < ApplicationController
   def index
     trade = session_trade_object
-    if (info = trade.getInfo)["success"] == 1
+    if !trade.nil? && (info = trade.getInfo)["success"] == 1
       @funds = "USD #{info["return"]["funds"]["usd"]}  BTC #{info["return"]["funds"]["btc"]}"
     end
   end
