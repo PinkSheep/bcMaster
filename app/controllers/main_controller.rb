@@ -1,6 +1,8 @@
 class MainController < ApplicationController
-  before_action :authorize
+  # before_action :authorize
+
   def index
+  	authorize
   	btce_ticker = Btce::Info.new.ticker("btc_usd")
     @btce_buy
     @btce_sell
@@ -28,8 +30,9 @@ class MainController < ApplicationController
     end
   end
 
-  def login
-    
+  def logout
+  	reset_session
+  	redirect_to :controller => "main", :action => "index"
   end
 
   private
@@ -40,13 +43,14 @@ class MainController < ApplicationController
 
   protected
   def authorize
-  	  @key_array = Array.new
-  	  @key_array = session[:bcmaster]
-  	if !@key_array[0].nil?	
+  	@key_array = Array.new
+  	@key_array = session[:bcmaster]
+  	if !@key_array.nil?
   	  @login_message = "You are already logged in with the api-key " + @key_array[0] + " from "
+  	  @login_form = false
   	else
   	  @login_message = "Please enter your API Key your Secret Key of "
-  	  reset_session	
+  	  @login_form = true
   	end
   end
 end
