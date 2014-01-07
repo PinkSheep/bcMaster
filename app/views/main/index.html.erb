@@ -5,13 +5,17 @@
   <table>
     <tr>
       <td width=50%>
+        <% if notice  %>
+        <p id="notice"><%= notice %></p>
+        <% end %>
         <%= image_tag("bcMaster_Logo.png", :alt => "bcMaster-Logo", :size => "200x202", :title => "bcMaster-Logo") %>
       </td>
         <td>
           <div id="login">
-            <p id="login-label">Please enter your API Key and your Secret Key of <%= link_to "btc-e.com", "https://btc-e.com" %>:</p>
-          <%= form_tag(controller: 'login', action: 'login', method: 'post', id: 'login-form') do %>
+            <p id="login-label"><%= @btce_trade %><%= @login_message %> <%= link_to "btc-e.com", "https://btc-e.com" %>:</p>
+          <%= form_tag(controller: 'main', action: 'index', method: 'post', id: 'login-form') do %>
           <%= hidden_field_tag(:domain, 'https://btc-e.com') %>
+          
           <table>
             <tr>
               <td><%= text_field_tag(:apikey, nil, placeholder: 'API-Key') %></td>
