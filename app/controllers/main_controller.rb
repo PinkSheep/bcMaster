@@ -2,6 +2,7 @@ class MainController < ApplicationController
   before_action :authorize
 
   def index
+    #holen der Kursinformationen von BTC-e
   	btce_ticker = Btce::Info.new.ticker("btc_usd")
     @btce_buy
     @btce_sell
@@ -14,10 +15,12 @@ class MainController < ApplicationController
     @btce_trade = {}
     @apikey = params[:apikey]
     @password = params[:password]
+    #Überprüfung der Verfügbarkeit des APIs
     if !@apikey.nil? && !@password.nil?
       trade = Btce::Trade.new(@apikey, @password)
       if !trade.nil?
         @btce_trade["getInfo"] = trade.getInfo
+        #Überprüfung der Zugangsdaten
         if @btce_trade["success"] = 1
         	init_session(@apikey, @password)
         	redirect_to :controller => 'trade', :action => 'index'
@@ -36,6 +39,7 @@ class MainController < ApplicationController
 
   private
   def init_session(key,secret)
+    #zu implementieren: Verschlüsselung des secret keys, bevor der Key in die Session gespeichert wird
   	key_array = [key,secret]
     session[:bcmaster] = key_array
   end
