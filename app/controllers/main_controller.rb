@@ -10,28 +10,24 @@ class MainController < ApplicationController
       @btce_buy = btce_ticker["ticker"]["buy"]
       @btce_sell = btce_ticker["ticker"]["sell"]
     end
+  end
 
-    @btce_info = Btce::Info.new
-    @btce_trade = {}
-    @apikey = params[:apikey]
-    @password = params[:password]
+  def login
+    apikey = params[:apikey]
+    password = params[:password]
     #Überprüfung der Verfügbarkeit des APIs
-    if !@apikey.nil? && !@password.nil?
-      trade = Btce::Trade.new(@apikey, @password)
-      if !trade.nil?
-        @btce_trade["getInfo"] = trade.getInfo
-        #Überprüfung der Zugangsdaten
-        if @btce_trade["success"] = 1
-        	init_session(@apikey, @password)
-        	redirect_to :controller => 'trade', :action => 'index'
-        # else
-        # 	# redirect_to :controller => 'main', :action => 'index'
-    	end
-        @btce_trade["ActiveOrders"] = trade.ActiveOrders
+    if !apikey.nil? && !password.nil?
+      trade = Btce::Trade.new(apikey, password).getInfo
+      #Überprüfung der Zugangsdaten
+      if !trade.nil? && trade["success"] == 1
+      	init_session(apikey, password)
+      	redirect_to :controller => 'trade', :action => 'index'
+      else
+        redirect_to :controller => 'main', :action => 'index'
       end
     end
   end
-
+  
   def logout
   	reset_session
   	redirect_to :controller => "main", :action => "index"

@@ -16,7 +16,7 @@
           <div id="login">
             <p id="login-label"><%= @login_message %> <%= link_to "btc-e.com", "https://btc-e.com" %>:</p>
           <% if @login_form %>
-          <%= form_tag(controller: 'main', action: 'index', method: 'post', id: 'login-form') do %>
+          <%= form_tag(controller: 'main', action: 'login', method: 'post', id: 'login-form') do %>
           <%= hidden_field_tag(:domain, 'https://btc-e.com') %>
           
           <table>

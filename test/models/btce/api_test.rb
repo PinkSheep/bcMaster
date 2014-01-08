@@ -10,4 +10,7 @@ class APITest < ActiveSupport::TestCase
   test "API contains currencies" do
     assert Btce::API::CURRENCIES
   end
+  test "API contains methods" do
+    assert Btce::API.new.api_methods
+  end
 end
