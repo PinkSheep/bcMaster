@@ -1,4 +1,8 @@
 BcMaster::Application.routes.draw do
+  get "main/logout"
+  get "disclaimer/disclaimer"
+  get "about/about"
+  get "main/index"
   get "trade/index"
   get "login/login"
 

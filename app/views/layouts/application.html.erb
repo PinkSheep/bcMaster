@@ -1,14 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>BcMaster</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
+  <head>
+    <title>bcMaster: Bitcoin Trading Client</title>
+    <meta charset="utf-8">
+    <%= stylesheet_link_tag "bootstrap.min" %>
+    <%= stylesheet_link_tag "main", :media => "all" %>
+
+    <%= javascript_include_tag "https://code.jquery.com/jquery.js" %>
+    <%= javascript_include_tag "bootstrap.min.js" %>
+    <%= javascript_include_tag "jquery-latest.js" %>
+    <%= javascript_include_tag "jquery.validate.js" %>
+  </head>
 <body>
 
-<%= yield %>
+  <div id="main">
 
+    <ul class="nav nav-tabs" id="nav-color">
+      <li class=<%= "#{cp(main_index_path)}" %>><%= link_to "Home", main_index_path %></li>
+      <li class=<%= "#{cp(trade_index_path)}" %>><%= link_to "Trade", trade_index_path %></li>
+      <li class=<%= "#{cp(about_about_path)}" %>><%= link_to "About", about_about_path %></li>
+      <li class=<%= "#{cp(disclaimer_disclaimer_path)}" %>><%= link_to "Disclaimer", disclaimer_disclaimer_path %></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="home">
+
+        <%= yield %>
+
+      </div>
+
+
+    </div>
+  </div>
 </body>
 </html>
