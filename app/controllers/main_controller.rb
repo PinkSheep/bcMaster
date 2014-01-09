@@ -20,6 +20,8 @@ class MainController < ApplicationController
       if !trade.nil? && trade["success"] == 1
         init_session(apikey, password)
         return redirect_to :controller => 'trade', :action => 'index'
+      else
+        flash.now[:alert] = "Login failed.\n #{trade}"
       end
     end
     redirect_to :controller => 'main', :action => 'index'
