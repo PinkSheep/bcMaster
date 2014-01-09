@@ -3,7 +3,7 @@ class MainController < ApplicationController
 
   def index
     #holen der Kursinformationen von BTC-e
-  	btce_ticker = Btce::Info.new.ticker("btc_usd")
+    btce_ticker = Btce::Info.new.ticker("btc_usd")
     @btce_buy
     @btce_sell
     unless btce_ticker.nil?
@@ -47,6 +47,6 @@ class MainController < ApplicationController
     else
       @login_message = "Please enter your API Key and your Secret Key of "
       @login_form = true
-  	end
+    end
   end
 end
