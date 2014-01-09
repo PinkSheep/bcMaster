@@ -1,4 +1,2 @@
-class DisclaimerController < ApplicationController
-  def disclaimer
-  end
+class DisclaimerController < PublicController
 end

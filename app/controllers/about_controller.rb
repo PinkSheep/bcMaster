@@ -1,4 +1,2 @@
-class AboutController < ApplicationController
-  def about
-  end
+class AboutController < PublicController
 end

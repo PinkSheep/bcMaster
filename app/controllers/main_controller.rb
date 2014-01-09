@@ -1,6 +1,6 @@
-class MainController < ApplicationController
-  before_action :authorize
-
+class MainController < PublicController
+  before_action :contents
+  
   def index
     #holen der Kursinformationen von BTC-e
     btce_ticker = Btce::Info.new.ticker("btc_usd")
@@ -9,6 +9,7 @@ class MainController < ApplicationController
     unless btce_ticker.nil?
       @btce_buy = btce_ticker["ticker"]["buy"]
       @btce_sell = btce_ticker["ticker"]["sell"]
+      @btce_sell = !self.is_a?(PublicController)
     end
   end
 
@@ -33,9 +34,7 @@ class MainController < ApplicationController
   end
   
   protected
-  def authorize
-    @key_array = Array.new
-    @key_array = session[:bcmaster]
+  def contents
     if !@key_array.nil?
       @login_message = "You are already logged in with the api-key " + @key_array[0] + " from "
       @login_form = false
