@@ -13,19 +13,16 @@ class MainController < ApplicationController
   end
 
   def login
-    apikey = params[:apikey]
-    password = params[:password]
     #Überprüfung der Verfügbarkeit des APIs
-    if !apikey.nil? && !password.nil?
+    if !(apikey = params[:apikey]).nil? && !(password = params[:password]).nil?
       trade = Btce::Trade.new(apikey, password).getInfo
       #Überprüfung der Zugangsdaten
       if !trade.nil? && trade["success"] == 1
-      	init_session(apikey, password)
-      	redirect_to :controller => 'trade', :action => 'index'
-      else
-        redirect_to :controller => 'main', :action => 'index'
+        init_session(apikey, password)
+        return redirect_to :controller => 'trade', :action => 'index'
       end
     end
+    redirect_to :controller => 'main', :action => 'index'
   end
   
   def logout
@@ -36,20 +33,20 @@ class MainController < ApplicationController
   private
   def init_session(key,secret)
     #zu implementieren: Verschlüsselung des secret keys, bevor der Key in die Session gespeichert wird
-  	key_array = [key,secret]
+    key_array = [key,secret]
     session[:bcmaster] = key_array
   end
 
   protected
   def authorize
-  	@key_array = Array.new
-  	@key_array = session[:bcmaster]
-  	if !@key_array.nil?
-  	  @login_message = "You are already logged in with the api-key " + @key_array[0] + " from "
-  	  @login_form = false
-  	else
-  	  @login_message = "Please enter your API Key and your Secret Key of "
-  	  @login_form = true
+    @key_array = Array.new
+    @key_array = session[:bcmaster]
+    if !@key_array.nil?
+      @login_message = "You are already logged in with the api-key " + @key_array[0] + " from "
+      @login_form = false
+    else
+      @login_message = "Please enter your API Key and your Secret Key of "
+      @login_form = true
   	end
   end
 end
