@@ -26,8 +26,8 @@ class MainController < ApplicationController
   end
   
   def logout
-  	reset_session
-  	redirect_to :controller => "main", :action => "index"
+    reset_session
+    redirect_to :controller => "main", :action => "index"
   end
 
   private
