@@ -1,3 +1,6 @@
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, :class => "flash #{key}") %>
+<% end %>
 <div>
 
   <h1 id="title">bcMaster: Bitcoin Trading Client</h1>
@@ -5,14 +8,10 @@
   <table>
     <tr>
       <td width=50%>
-        <% if notice  %>
-        <p id="notice"><%= notice %></p>
-        <% end %>
         <%= image_tag("bcMaster_Logo.png", :alt => "bcMaster-Logo", :size => "200x202", :title => "bcMaster-Logo") %>
       </td>
         <td>
           <p> BTC Buy: <%= @btce_buy %> USD Sell: <%= @btce_sell %> USD</p>
-          
           <div id="login">
             <p id="login-label"><%= @login_message %> <%= link_to "btc-e.com", "https://btc-e.com" %>:</p>
           <% if @login_form %>
@@ -24,7 +23,7 @@
               <td><%= text_field_tag(:apikey, nil, placeholder: 'API-Key') %></td>
             </tr>
             <tr>
-            <td><%= password_field_tag(:password, nil, placeholder: 'Secret') %></td>
+            <td><%= password_field_tag(:secret, nil, placeholder: 'Secret') %></td>
           </tr>
           <tr>
             <td>

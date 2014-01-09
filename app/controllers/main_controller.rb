@@ -14,31 +14,24 @@ class MainController < ApplicationController
 
   def login
     #Überprüfung der Verfügbarkeit des APIs
-    if !(apikey = params[:apikey]).nil? && !(password = params[:password]).nil?
+    if !(apikey = params[:apikey]).nil? && !(password = params[:secret]).nil?
       trade = Btce::Trade.new(apikey, password).getInfo
       #Überprüfung der Zugangsdaten
       if !trade.nil? && trade["success"] == 1
         init_session(apikey, password)
-        return redirect_to :controller => 'trade', :action => 'index'
-      else
-        flash.keep[:alert] = "Login failed.\n #{trade}"
+        return redirect_to trade_index_url
       end
     end
-    redirect_to :controller => 'main', :action => 'index'
+    flash[:error] = (trade && trade["error"]) || "apikey or password missing"
+    redirect_to main_index_url
   end
   
   def logout
     reset_session
-    redirect_to :controller => "main", :action => "index"
+    flash[:notice] = "logged out"
+    redirect_to main_index_url
   end
-
-  private
-  def init_session(key,secret)
-    #zu implementieren: Verschlüsselung des secret keys, bevor der Key in die Session gespeichert wird
-    key_array = [key,secret]
-    session[:bcmaster] = key_array
-  end
-
+  
   protected
   def authorize
     @key_array = Array.new
@@ -50,5 +43,12 @@ class MainController < ApplicationController
       @login_message = "Please enter your API Key and your Secret Key of "
       @login_form = true
     end
+  end
+
+  private
+  def init_session(key,secret)
+    #zu implementieren: Verschlüsselung des secret keys, bevor der Key in die Session gespeichert wird
+    key_array = [key,secret]
+    session[:bcmaster] = key_array
   end
 end
