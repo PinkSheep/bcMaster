@@ -42,7 +42,7 @@ deploy:
     master: bcmaster-dev
     stable: bcmaster
   api_key: b3f1822f-cc5b-459f-a7d6-d13ded0db51d
-  run:
-    - rm -rf public/assets
-    - bundle exec rake assets:precompile RAILS_ENV=production
+#  run:
+#    - rm -rf public/assets
+#    - bundle exec rake assets:precompile RAILS_ENV=production
 
