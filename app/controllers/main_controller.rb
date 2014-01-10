@@ -9,7 +9,6 @@ class MainController < PublicController
     unless btce_ticker.nil?
       @btce_buy = btce_ticker["ticker"]["buy"]
       @btce_sell = btce_ticker["ticker"]["sell"]
-      @btce_sell = !self.is_a?(PublicController)
     end
   end
 
