@@ -1,40 +1,18 @@
 language: ruby
 
 rvm:
-#  - ruby-head
+  - ruby-head
   - 2.0.0
 
-#env:
-#  matrix:
-#    - DB=postgresql
-#    - DB=sqlite
-#    - DB=mysql
-#  global:
-#    - "JRUBY_OPTS=-Xcext.enabled=true" 
+matrix:
+  include:
+    - rvm: 2.0.0
 
-#matrix:
-#  include:
-#    - rvm: jruby-19mode
-#      env: DB=sqlite
-
-# white list
-#branches:
-#  only:
-#  - master
-#  - stable
-
-#services:
-#  - pgsql 
-
-#before_script:
-#  - psql -c 'create database myapp_test;' -U postgres
-
-#script:
-#  - RAILS_ENV=test bundle exec rake --trace db:migrate test
-#  - export RAILS_ENV=test
-#  - rake db:test:load
-#  - bundle exec rake db:create db:migrate
-#  - bundle exec rake db:test:prepare
+branches:
+  only:
+  - master
+  - stable
+  - travis
 
 deploy:
   provider: heroku
@@ -42,7 +20,3 @@ deploy:
     master: bcmaster-dev
     stable: bcmaster
   api_key: b3f1822f-cc5b-459f-a7d6-d13ded0db51d
-#  run:
-#    - rm -rf public/assets
-#    - bundle exec rake assets:precompile RAILS_ENV=production
-
