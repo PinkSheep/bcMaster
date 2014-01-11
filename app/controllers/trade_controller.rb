@@ -3,7 +3,7 @@ class TradeController < ApplicationController
 
   def index
     if !(info = @trade.getInfo).nil? && info["success"] == 1
-      @info = info["return"]
+      @info = "USD #{info["return"]["funds"]["usd"]}  BTC #{info["return"]["funds"]["btc"]}"
     else
       flash[:error] = (!info.nil? && info["error"]) || "something failed"
     end
