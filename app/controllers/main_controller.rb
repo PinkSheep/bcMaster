@@ -34,8 +34,8 @@ class MainController < PublicController
   
   protected
   def contents
-    if !@key_array.nil?
-      @login_message = "You are already logged in with the api-key " + @key_array[0] + " from "
+    if !@credentials.nil?
+      @login_message = "You are already logged in with the api-key " + @credentials[:apikey] + " from "
       @login_form = false
     else
       @login_message = "Please enter your API Key and your Secret Key of "

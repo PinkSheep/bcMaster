@@ -7,31 +7,27 @@ class TradeController < ApplicationController
     else
       flash[:error] = (!info.nil? && info["error"]) || "something failed"
     end
+    @orders = {}
+    @orders[:columns] = [
+      { name: "pair", display_name: "Pair" },
+      { name: "type", display_name: "Type" },
+      { name: "amount", display_name: "Amount" },
+      { name: "rate", display_name: "Rate" },
+      { name: "timestamp_created", display_name: "Created" },
+      { name: "status", display_name: "Status" },
+      { name: "id", display_name: "id" }
+    ]
     if !(orders = @trade.ActiveOrders).nil? && orders["success"] == 1
-      @orders = orders["return"]
+      orders = orders["return"]
+      order_collection = []
+      orders.each_pair{
+        |pair| pair[1]["id"] = pair[0]
+        order_collection<<pair[1]
+      }
+      @orders[:collection] = order_collection
     else
-      flash[:error] = (!orders.nil? && orders["error"]) || "something failed"
+      flash[:error] = orders || "something failed"
     end
-  end
-
-  protected
-  # http://stackoverflow.com/questions/3863844/rails-how-to-build-table-in-helper-using-content-tag
-  def display_standard_table(columns, collection = {})
-    thead = content_tag :thead do
-      content_tag :tr do
-        columns.collect {|column|  concat content_tag(:th,column[:display_name])}.join().html_safe
-      end
-    end
-    tbody = content_tag :tbody do
-      collection.collect { |elem|
-        content_tag :tr do
-          columns.collect { |column|
-            concat content_tag(:td, elem.attributes[column[:name]])
-          }.to_s.html_safe
-        end
-      }.join().html_safe
-    end
-    content_tag :table, thead.concat(tbody)
   end
 
   private
