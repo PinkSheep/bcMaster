@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   protected
   def authorize
   	#falls keine Session vorhanden ist, wird man wieder auf die Mainseite weitergeleitet
-    if (@key_array = session[:bcmaster]).nil? && !self.is_a?(PublicController)
+    if (@credentials = session[:bcmaster]).nil? && !self.is_a?(PublicController)
       flash[:notice] = "sign in first"
       redirect_to main_index_url
     end

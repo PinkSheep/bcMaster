@@ -46,7 +46,6 @@ class MainController < PublicController
   private
   def init_session(key,secret)
     #zu implementieren: Verschlüsselung des secret keys, bevor der Key in die Session gespeichert wird
-    key_array = [key,secret]
-    session[:bcmaster] = key_array
+    session[:bcmaster] = {apikey: key, secret: secret}
   end
 end
