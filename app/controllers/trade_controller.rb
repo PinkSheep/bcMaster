@@ -26,7 +26,7 @@ class TradeController < ApplicationController
       }
       @orders[:collection] = order_collection
     else
-      flash[:error] = orders || "something failed"
+      flash[:error] = (!orders.nil? && orders["error"]) || "something failed"
     end
   end
 
