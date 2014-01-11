@@ -2,7 +2,7 @@ ENV["RAILS_ENV"] ||= "test"
 
 # Coverallas - Test Coverage
 require 'coveralls'
-Coveralls.wear!('rails')
+Coveralls.wear! 'rails'
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
