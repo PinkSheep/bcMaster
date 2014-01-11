@@ -1,0 +1,101 @@
+// Place all the styles related to the Main controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+html {
+  background: none repeat scroll 0 0 #E1F5A9;
+  padding: 3%;
+}
+
+body {
+  background-color: #FBFBEF;
+  margin: 0 0;
+  padding: 0 -10px;
+  font-size: medium;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+}
+
+#main {
+  background-color: #FBFBEF;
+}
+
+#nav-color {
+  background-color: #F5F6CE;
+}
+
+.nav nav-tabs {
+  margin: 0;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  background-color: #FBFBEF;
+}
+
+h1 {
+  font-size: 300%;
+  padding-bottom: 25px;
+}
+
+h2 {
+  font-size: 250%;
+  padding-bottom: 15px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#title {
+  margin-bottom: 30px;
+}
+
+.title {
+  margin-bottom: 50px;
+}
+
+#login {
+  padding: 20px;
+  background-color: #D8D8D8;
+}
+
+#login-button {
+  font-size: medium;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  margin-right: 20px;
+}
+
+#apikey, #secret {
+  margin-right: 20px;
+  margin-bottom: 15px;
+  width: 420px;
+}
+
+#home {
+  width: 100%;
+  margin-bottom: 50px;
+  padding: 30px 40px;
+}
+
+#about, #disclaimer {
+  width: 65%;
+  margin-bottom: 50px;
+  padding: 30px 40px;
+ }
+
+.text {
+  padding: 20px;
+  background-color: #FFFFFF;
+}
+
+#signed-in {
+  width: 400px;
+  margin-bottom: 100px;
+}
+
+footer {
+  font-size: small;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
