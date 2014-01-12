@@ -2,14 +2,13 @@ class TradeController < ApplicationController
   before_action :open_trade_connection
 
   def index
-    if !(info = @trade.getInfo).nil? && info["success"] == 1
-      @info = "USD #{info["return"]["funds"]["usd"]}  BTC #{info["return"]["funds"]["btc"]}"
-    else
-      flash[:error] = (!info.nil? && info["error"]) || "something failed"
-    end
+    account_info
+  end
 
-    @orders = {}
-    @orders[:columns] = [
+  def open_orders
+    account_info
+    @table = {}
+    @table[:columns] = [
       { name: "pair", display_name: "Pair" },
       { name: "type", display_name: "Type" },
       { name: "amount", display_name: "Amount" },
@@ -26,13 +25,17 @@ class TradeController < ApplicationController
         pair[1]["timestamp_created"] = Time.at(pair[1]["timestamp_created"])
         order_collection<<pair[1]
       }
-      @orders[:collection] = order_collection
+      @table[:collection] = order_collection
     else
       flash[:error] = (!orders.nil? && orders["error"]) || "something failed"
     end
-    
-    @transactions = {}
-    @transactions[:columns] = [
+    render :index
+  end
+
+  def transaction_history
+    account_info
+    @table = {}
+    @table[:columns] = [
       { name: "type", display_name: "Type" },
       { name: "amount", display_name: "Amount" },
       { name: "currency", display_name: "Currency" },
@@ -49,13 +52,17 @@ class TradeController < ApplicationController
         pair[1]["timestamp"] = Time.at(pair[1]["timestamp"])
         trans_collection<<pair[1]
       }
-      @transactions[:collection] = trans_collection
+      @table[:collection] = trans_collection
     else
       flash[:error] = (!transactions.nil? && transactions["error"]) || "something failed"
     end
-    
-    @trades = {}
-    @trades[:columns] = [
+    render :index
+  end
+
+  def trade_history
+    account_info
+    @table = {}
+    @table[:columns] = [
       { name: "pair", display_name: "Pair" },
       { name: "type", display_name: "Type" },
       { name: "amount", display_name: "Amount" },
@@ -73,11 +80,20 @@ class TradeController < ApplicationController
         pair[1]["timestamp"] = Time.at(pair[1]["timestamp"])
         trades_collection<<pair[1]
       }
-      @trades[:collection] = trades_collection
+      @table[:collection] = trades_collection
     else
       flash[:error] = (!trades.nil? && trades["error"]) || "something failed"
     end
+    render :index
+  end
 
+  protected
+  def account_info
+    if !(info = @trade.getInfo).nil? && info["success"] == 1
+      @info = "USD #{info["return"]["funds"]["usd"]}  BTC #{info["return"]["funds"]["btc"]}"
+    else
+      flash[:error] = (!info.nil? && info["error"]) || "something failed"
+    end
   end
 
   private

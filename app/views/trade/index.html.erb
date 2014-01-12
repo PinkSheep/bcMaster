@@ -2,12 +2,7 @@
   <div ><%= render 'account_info' %></div>
 </div>
 <div class="row">
-  <div><%= display_standard_table(@orders[:columns], @orders[:collection]) %></div>
+  <% if @table%>
+    <div><%= display_standard_table(@table[:columns], @table[:collection]) %></div>
+  <% end %>
 </div>
-<div class="row">
-  <div><%= display_standard_table(@transactions[:columns], @transactions[:collection]) %></div>
-</div>
-<div class="row">
-  <div><%= display_standard_table(@trades[:columns], @trades[:collection]) %></div>
-</div>
-
