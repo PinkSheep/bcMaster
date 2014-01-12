@@ -1,10 +1,10 @@
 BcMaster::Application.routes.draw do
-  get "about/index"
+  get "about/index", as: "about"
   get "main/index"
-  get "main/logout"
-  get "trade/trade_history"
-  get "trade/transaction_history"
-  get "trade/open_orders"
+  get "main/logout", as: "logout"
+  get "trade/trade_history", as: "trade_history"
+  get "trade/transaction_history", as: "transaction_history"
+  get "trade/open_orders", as: "open_orders"
 
   root :to => 'main#index'
 

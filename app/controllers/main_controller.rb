@@ -6,17 +6,17 @@ class MainController < PublicController
       #Überprüfung der Zugangsdaten
       if trade && trade["success"] == 1
         init_session(apikey, secret)
-        return redirect_to trade_open_orders_url
+        return redirect_to open_orders_url
       end
     end
     flash[:error] = (trade && trade["error"]) || "apikey or password missing"
-    redirect_to main_index_url
+    redirect_to root_url
   end
   
   def logout
     reset_session
     flash[:notice] = "logged out"
-    redirect_to main_index_url
+    redirect_to root_url
   end
 
   private

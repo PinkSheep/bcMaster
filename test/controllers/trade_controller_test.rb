@@ -22,6 +22,6 @@ class TradeControllerTest < ActionController::TestCase
   end
   test "should redirect to main" do
     get :index
-    assert_redirected_to main_index_url
+    assert_redirected_to root_path
   end
 end
