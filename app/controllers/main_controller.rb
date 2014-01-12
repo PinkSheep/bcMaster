@@ -6,7 +6,7 @@ class MainController < PublicController
     btce_ticker = Btce::Info.new.ticker("btc_usd")
     @btce_buy
     @btce_sell
-    unless btce_ticker.nil?
+    if btce_ticker
       @btce_buy = btce_ticker["ticker"]["buy"]
       @btce_sell = btce_ticker["ticker"]["sell"]
     end
@@ -14,10 +14,10 @@ class MainController < PublicController
 
   def login
     #Überprüfung der Verfügbarkeit des APIs
-    if !(apikey = params[:apikey]).nil? && !(password = params[:secret]).nil?
+    if (apikey = params[:apikey]) && (password = params[:secret])
       trade = Btce::Trade.new(apikey, password).getInfo
       #Überprüfung der Zugangsdaten
-      if !trade.nil? && trade["success"] == 1
+      if trade && trade["success"] == 1
         init_session(apikey, password)
         return redirect_to trade_index_url
       end
@@ -34,7 +34,7 @@ class MainController < PublicController
   
   protected
   def contents
-    if !@credentials.nil?
+    if @credentials
       @login_message = "You are already logged in with the api-key " + @credentials[:apikey] + " from "
       @login_form = false
     else
