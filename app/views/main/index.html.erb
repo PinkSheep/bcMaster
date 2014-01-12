@@ -1,6 +1,6 @@
 <div class="row">
   <h1>
-    bcMaster: Bitcoin Trading Client </br>
+    bcMaster: Bitcoin Trading Client <br />
     <small>BTC Buy: $<%= @btce_buy %> Sell: $<%= @btce_sell %></small>
   </h1>
 </div>
@@ -9,7 +9,7 @@
     <%= image_tag(asset_path("bitcoin.png"), alt: "bcMaster-Logo", title: "bcMaster-Logo") %>
   </div>
   <div class="col-sm-5">
-    <% if @credentials.nil? %>
+    <% if !@credentials %>
       <%= render 'login' %>
     <% end %>
   </div>
