@@ -1,5 +1,4 @@
 class MainController < PublicController
-  before_action :contents
   
   def index
     #holen der Kursinformationen von BTC-e
@@ -30,17 +29,6 @@ class MainController < PublicController
     reset_session
     flash[:notice] = "logged out"
     redirect_to main_index_url
-  end
-  
-  protected
-  def contents
-    if @credentials
-      @login_message = "You are already logged in with the api-key " + @credentials[:apikey] + " from "
-      @login_form = false
-    else
-      @login_message = "Please enter your API Key and your Secret Key of "
-      @login_form = true
-    end
   end
 
   private
