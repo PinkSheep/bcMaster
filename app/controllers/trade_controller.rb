@@ -22,6 +22,7 @@ class TradeController < ApplicationController
       order_collection = []
       orders.each_pair{
         |pair| pair[1]["id"] = pair[0]
+        pair[1]["timestamp_created"] = Time.at(pair[1]["timestamp_created"])
         order_collection<<pair[1]
       }
       @orders[:collection] = order_collection

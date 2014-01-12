@@ -20,6 +20,6 @@ module ApplicationHelper
         end
       }.join().html_safe
     end
-    content_tag :table, thead.concat(tbody)
+    content_tag :table, thead.concat(tbody), class: "table table-striped table-condensed"
   end
 end
