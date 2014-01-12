@@ -1,5 +1,8 @@
+<%= content_for :title do %>
+  Trade
+<% end %>
 <div class="row">
-  <div ><%= render 'account_info' %></div>
+  <h1><%= @title %></h1>
 </div>
 <div class="row">
   <% if @table %>
