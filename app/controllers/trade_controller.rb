@@ -1,12 +1,7 @@
 class TradeController < ApplicationController
-  before_action :open_trade_connection
-
-  def index
-    account_info
-  end
+  before_action :open_trade_connection, :account_info
 
   def open_orders
-    account_info
     @table = {}
     @table[:columns] = [
       { name: "pair", display_name: "Pair" },
@@ -17,23 +12,10 @@ class TradeController < ApplicationController
       { name: "status", display_name: "Status" },
       { name: "id", display_name: "id" }
     ]
-    if !(orders = @trade.ActiveOrders).nil? && orders["success"] == 1
-      orders = orders["return"]
-      order_collection = []
-      orders.each_pair{
-        |pair| pair[1]["id"] = pair[0]
-        pair[1]["timestamp_created"] = Time.at(pair[1]["timestamp_created"])
-        order_collection<<pair[1]
-      }
-      @table[:collection] = order_collection
-    else
-      flash[:error] = (!orders.nil? && orders["error"]) || "something failed"
-    end
-    render :index
+    default_action(@trade.ActiveOrders, "timestamp_created")
   end
 
   def transaction_history
-    account_info
     @table = {}
     @table[:columns] = [
       { name: "type", display_name: "Type" },
@@ -44,23 +26,10 @@ class TradeController < ApplicationController
       { name: "timestamp", display_name: "Timestamp"},
       { name: "id", display_name: "id" }
     ]
-    if !(transactions = @trade.TransHistory).nil? && transactions["success"] == 1
-      transactions = transactions["return"]
-      trans_collection = []
-      transactions.each_pair{
-        |pair| pair[1]["id"] = pair[0]
-        pair[1]["timestamp"] = Time.at(pair[1]["timestamp"])
-        trans_collection<<pair[1]
-      }
-      @table[:collection] = trans_collection
-    else
-      flash[:error] = (!transactions.nil? && transactions["error"]) || "something failed"
-    end
-    render :index
+    default_action(@trade.TransHistory, "timestamp")
   end
 
   def trade_history
-    account_info
     @table = {}
     @table[:columns] = [
       { name: "pair", display_name: "Pair" },
@@ -72,19 +41,7 @@ class TradeController < ApplicationController
       { name: "timestamp", display_name: "Timestamp"},
       { name: "id", display_name: "id" }
     ]
-    if !(trades = @trade.TradeHistory).nil? && trades["success"] == 1
-      trades = trades["return"]
-      trades_collection = []
-      trades.each_pair{
-        |pair| pair[1]["id"] = pair[0]
-        pair[1]["timestamp"] = Time.at(pair[1]["timestamp"])
-        trades_collection<<pair[1]
-      }
-      @table[:collection] = trades_collection
-    else
-      flash[:error] = (!trades.nil? && trades["error"]) || "something failed"
-    end
-    render :index
+    default_action(@trade.TradeHistory, "timestamp")
   end
 
   protected
@@ -94,6 +51,24 @@ class TradeController < ApplicationController
     else
       flash[:error] = (!info.nil? && info["error"]) || "something failed"
     end
+  end
+
+  def default_action(result, timestamp)
+    if !result.nil? && result["success"] == 1
+      result = result["return"]
+      result_collection = []
+      result.each_pair{
+        |pair| pair[1]["id"] = pair[0]
+        if timestamp
+          pair[1][timestamp] = Time.at(pair[1][timestamp])
+        end
+        result_collection<<pair[1]
+      }
+      @table[:collection] = result_collection
+    else
+      flash[:error] = (!result.nil? && result["error"]) || "something failed"
+    end
+    render :index
   end
 
   private
