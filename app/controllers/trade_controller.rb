@@ -44,8 +44,8 @@ class TradeController < ApplicationController
   end
   
   def create_order
-    return flash[:error] = "api-key does not have trade permission" if @rights["trade"] != 1
-    if (pair=params[:pair]) && (type=params[:trade_type]) && (rate=params[:rate]) && (amount=params[:amount])
+    return flash[:error] = "api-key does not have trade permission" if @rights && @rights["trade"] != 1
+    if (pair=params[:pair]) && (type=params[:type]) && (rate=params[:rate]) && (amount=params[:amount])
       if (result = @trade.Trade(pair: pair, type: type, rate: rate, amount: amount))["success"] == 1
         flash[:notice] = result
         return redirect_to open_orders_url

@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     end
     if !self.is_a?(PublicController) && !@credentials
       flash[:notice] = "sign in first"
-      redirect_to root_url
+      return redirect_to root_url
     end
   end
   def init_ticker

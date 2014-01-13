@@ -5,7 +5,7 @@ class TradeControllerTest < ActionController::TestCase
     session[:bcmaster] = {
       apikey: "YACSECCW-SXC6EV2I-CF679EYB-PQ3NKI93-PENNC1UM",
       secret: "7876863e49c7ba7ac9dba285e9e6313e4b601aecfaab03b6c9704efa56f8f6de" }
-    %w(open_orders transaction_history trade_history index).each do
+    %w(open_orders transaction_history trade_history index create_order).each do
       |method| get method
       assert_response :success
     end
@@ -14,11 +14,31 @@ class TradeControllerTest < ActionController::TestCase
     session[:bcmaster] = {
       apikey: "apikey",
       secret: "secret" }
-    %w(open_orders transaction_history trade_history index).each do
+    %w(open_orders transaction_history trade_history index create_order).each do
       |method| get method
       assert flash[:error]
       assert_response :success
     end
+  end
+  test "missing params should flash error" do
+    session[:bcmaster] = {
+      apikey: "YACSECCW-SXC6EV2I-CF679EYB-PQ3NKI93-PENNC1UM",
+      secret: "7876863e49c7ba7ac9dba285e9e6313e4b601aecfaab03b6c9704efa56f8f6de" }
+    post :create_order, {id: "trade-form", commit: "Trade"}
+    assert_equal "all fields are required", flash[:error]
+  end
+  test "valid order with no money should flash error" do
+    session[:bcmaster] = {
+      apikey: "YACSECCW-SXC6EV2I-CF679EYB-PQ3NKI93-PENNC1UM",
+      secret: "7876863e49c7ba7ac9dba285e9e6313e4b601aecfaab03b6c9704efa56f8f6de" }
+    post :create_order, {
+      id: "trade-form",
+      pair: "btc_usd",
+      type: "buy",
+      rate: "10",
+      amount: "10",
+      submit: "Trade" }
+    assert true
   end
   test "should redirect to main" do
     get :index
