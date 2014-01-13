@@ -8,7 +8,6 @@ class TradeTest < ActiveSupport::TestCase
     @info = nil
   end
   test "should return account info" do
-    info = @trade.getInfo
-    assert !nil?, "result contains account info"
+    assert_not_nil @trade.getInfo
   end
 end
