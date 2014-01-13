@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
     if @credentials = session[:bcmaster]
       @trade = Btce::Trade.new(@credentials[:apikey], @credentials[:secret])
       if (info = @trade.getInfo) && info["success"] == 1
+        @rights = info["return"]["rights"]
         @info = "USD #{info["return"]["funds"]["usd"]}  BTC #{info["return"]["funds"]["btc"]}"
       else
         flash[:error] = (info && info["error"]) || "something failed"

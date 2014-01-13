@@ -5,6 +5,7 @@ BcMaster::Application.routes.draw do
   get "trade/trade_history", as: "trade_history"
   get "trade/transaction_history", as: "transaction_history"
   get "trade/open_orders", as: "open_orders"
+  get "trade/create_order", as: "create_order"
 
   root :to => 'main#index'
 

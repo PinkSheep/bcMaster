@@ -42,21 +42,32 @@ class TradeController < ApplicationController
         { name: "id", display_name: "id" } ],
       "timestamp" )
   end
+  
+  def create_order
+    return flash[:error] = "api-key does not have trade permission" if @rights["trade"] != 1
+    if (pair=params[:pair]) && (type=params[:trade_type]) && (rate=params[:rate]) && (amount=params[:amount])
+      if (result = @trade.Trade(pair: pair, type: type, rate: rate, amount: amount))
+        flash[:notice] = result
+        return redirect_to open_orders_url
+      end
+    end
+    if params[:commit]
+      flash[:error] = result || "all fields are required"
+    end
+  end
 
   protected
   def default_action(result, columns, timestamp)
     @table = {}
     @table[:columns] = columns
     if result && result["success"] == 1
-      result_collection = []
-      result["return"].each_pair{
-        |pair| pair[1]["id"] = pair[0]
+      @table[:collection] = result["return"].collect{
+        |p| p[1]["id"] = p[0]
         if timestamp
-          pair[1][timestamp] = Time.at(pair[1][timestamp])
+          p[1][timestamp] = Time.at(p[1][timestamp])
         end
-        result_collection << pair[1]
+        p[1]
       }
-      @table[:collection] = result_collection
     else
       flash[:error] = (result && result["error"]) || "something failed"
     end
