@@ -11,7 +11,9 @@ class ApplicationController < ActionController::Base
       @trade = Btce::Trade.new(@credentials[:apikey], @credentials[:secret])
       if (info = @trade.getInfo) && info["success"] == 1
         @rights = info["return"]["rights"]
-        @info = "USD #{info["return"]["funds"]["usd"]}  BTC #{info["return"]["funds"]["btc"]}"
+        @info = info["return"]["funds"].select{
+          |currency, amount| amount != 0 || currency == "usd" || currency == "btc"
+        }.map{|currency, amount| currency + ": " + amount.to_s }.reduce{|a,b| a+" "+b}
       else
         flash[:error] = (info && info["error"]) || "something failed"
       end
