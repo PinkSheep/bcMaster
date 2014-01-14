@@ -5,6 +5,7 @@ module ApplicationHelper
   
   # http://stackoverflow.com/questions/3863844/rails-how-to-build-table-in-helper-using-content-tag
   def display_standard_table(columns, collection)
+    return unless columns
     collection = collection || {}
     thead = content_tag :thead do
       content_tag :tr do

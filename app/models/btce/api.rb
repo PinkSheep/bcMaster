@@ -8,6 +8,19 @@ module Btce
       nmc_usd nvc_btc nvc_usd ppc_btc ppc_usd
       trc_btc usd_rur xpm_btc)
     CURRENCIES = CURRENCY_PAIRS.map {|pair| pair.split("_")}.flatten.uniq.sort
+    PARAMETER_DISPLAY_NAME = {
+      "pair" => "Pair",
+      "type" => "Type",
+      "amount" => "Amount",
+      "rate" => "Rate",
+      "timestamp_created" => "Created",
+      "status" => "Status",
+      "id" => "id",
+      "currency" => "Currency",
+      "desc" => "Description",
+      "timestamp" => "Timestamp",
+      "order_id" => "OrderID",
+      "is_your_order" => "your order" }
     def api_methods
       self.class.instance_methods(false)
     end

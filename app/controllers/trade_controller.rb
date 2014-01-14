@@ -2,45 +2,17 @@ class TradeController < ApplicationController
 
   def open_orders
     @title = "Open Orders"
-    default_action(
-      @trade.ActiveOrders,
-      [ { name: "pair", display_name: "Pair" },
-        { name: "type", display_name: "Type" },
-        { name: "amount", display_name: "Amount" },
-        { name: "rate", display_name: "Rate" },
-        { name: "timestamp_created", display_name: "Created" },
-        { name: "status", display_name: "Status" },
-        { name: "id", display_name: "id" } ],
-      "timestamp_created" )
+    default_action(@trade.ActiveOrders)
   end
 
   def transaction_history
     @title = "Transaction History"
-    default_action(
-      @trade.TransHistory,
-      [ { name: "type", display_name: "Type" },
-        { name: "amount", display_name: "Amount" },
-        { name: "currency", display_name: "Currency" },
-        { name: "desc", display_name: "Description" },
-        { name: "status", display_name: "Status" },
-        { name: "timestamp", display_name: "Timestamp"},
-        { name: "id", display_name: "id" } ],
-      "timestamp" )
+    default_action(@trade.TransHistory)
   end
 
   def trade_history
     @title = "Trade History"
-    default_action(
-      @trade.TradeHistory,
-      [ { name: "pair", display_name: "Pair" },
-        { name: "type", display_name: "Type" },
-        { name: "amount", display_name: "Amount" },
-        { name: "rate", display_name: "Rate" },
-        { name: "order_id", display_name: "OrderID" },
-        { name: "is_your_order", display_name: "your order" },
-        { name: "timestamp", display_name: "Timestamp"},
-        { name: "id", display_name: "id" } ],
-      "timestamp" )
+    default_action(@trade.TradeHistory)
   end
   
   def create_order
@@ -57,16 +29,16 @@ class TradeController < ApplicationController
   end
 
   protected
-  def default_action(result, columns, timestamp)
+  def default_action(result)
     @table = {}
-    @table[:columns] = columns
     if result && result["success"] == 1
-      @table[:collection] = result["return"].collect{
-        |p| p[1]["id"] = p[0]
-        if timestamp
-          p[1][timestamp] = Time.at(p[1][timestamp])
-        end
-        p[1]
+      @table[:collection] = result["return"].map{
+        |key, value| value["id"] = key
+        # Convert Unix time to UTC
+        value.each{ |a,b| value[a] = Time.at(b).gmtime if a.include? "timestamp" }
+      }
+      @table[:columns] = @table[:collection][1].map{
+        |key, value| {name: key, display_name: Btce::API::PARAMETER_DISPLAY_NAME[key]}
       }
     else
       flash[:error] = (result && result["error"]) || "something failed"
