@@ -9,7 +9,7 @@ module ApplicationHelper
     collection = collection || {}
     thead = content_tag :thead do
       content_tag :tr do
-        columns.collect {|column|  concat content_tag(:th,column[:display_name])}.join().html_safe
+        columns.collect {|column| concat content_tag(:th,column[:display_name])}.join.html_safe
       end
     end
     tbody = content_tag :tbody do
@@ -19,7 +19,7 @@ module ApplicationHelper
             concat content_tag(:td, elem[column[:name]])
           }.to_s.html_safe
         end
-      }.join().html_safe
+      }.join.html_safe
     end
     content_tag :table, thead.concat(tbody), class: "table table-striped table-condensed"
   end

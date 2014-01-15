@@ -32,13 +32,13 @@ class TradeController < ApplicationController
   def default_action(result)
     @table = {}
     if result && result["success"] == 1
-      @table[:collection] = result["return"].map{
-        |key, value| value["id"] = key
+      @table[:collection] = result["return"].map{ |key, value|
+        value["id"] = key
         # Convert Unix time to UTC
         value.each{ |a,b| value[a] = Time.at(b).gmtime if a.include? "timestamp" }
       }
-      @table[:columns] = @table[:collection][1].map{
-        |key, value| {name: key, display_name: Btce::API::PARAMETER_DISPLAY_NAME[key]}
+      @table[:columns] = @table[:collection][0].map{ |key, value|
+        {name: key, display_name: Btce::API::PARAMETER_DISPLAY_NAME[key]}
       }
     else
       flash[:error] = (result && result["error"]) || "something failed"
