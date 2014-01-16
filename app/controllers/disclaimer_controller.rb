@@ -1,0 +1,2 @@
+class DisclaimerController < PublicController
+end

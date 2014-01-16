@@ -1,5 +1,6 @@
 BcMaster::Application.routes.draw do
   get "about/index", as: "about"
+  get "disclaimer/index", as: "disclaimer"
   get "main/index"
   get "main/logout", as: "logout"
   get "trade/trade_history", as: "trade_history"
