@@ -29,6 +29,9 @@ img {
   @extend .btn;
   @extend .btn-primary;
   }
+.alert {
+ 	margin-top: 50px;
+}
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
@@ -42,7 +45,6 @@ section {
   @extend .row;
   margin-top: 20px;
   }
-
 h1 {
   padding-left: 10px;
   margin-bottom: 30px;
