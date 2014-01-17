@@ -9,13 +9,13 @@ class MainController < PublicController
         return redirect_to open_orders_url
       end
     end
-    flash[:error] = (trade && trade["error"]) || "apikey or password missing"
+    flash.now[:error] = (trade && trade["error"]) || "apikey or password missing"
     redirect_to root_url
   end
   
   def logout
     reset_session
-    flash[:notice] = "logged out"
+    flash.now[:notice] = "logged out"
     redirect_to root_url
   end
 

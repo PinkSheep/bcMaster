@@ -19,12 +19,12 @@ class TradeController < ApplicationController
     return flash[:error] = "api-key does not have trade permission" if @rights && @rights["trade"] != 1
     if (pair=params[:pair]) && (type=params[:type]) && (rate=params[:rate]) && (amount=params[:amount])
       if (result = @trade.Trade(pair: pair, type: type, rate: rate, amount: amount))["success"] == 1
-        flash[:notice] = result
+        flash.now[:notice] = result
         return redirect_to open_orders_url
       end
     end
     if params[:commit]
-      flash[:error] = result && result["error"] || "all fields are required"
+      flash.now[:error] = result && result["error"] || "all fields are required"
     end
   end
 
@@ -41,7 +41,7 @@ class TradeController < ApplicationController
         {name: key, display_name: Btce::API::PARAMETER_DISPLAY_NAME[key]}
       }
     else
-      flash[:error] = (result && result["error"]) || "something failed"
+      flash.now[:error] = (result && result["error"]) || "something failed"
     end
     render :index
   end
