@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authorize, :init_ticker
-  
+
   protected
   def authorize
   	#falls keine Session vorhanden ist, wird man wieder auf die Mainseite weitergeleitet
@@ -15,12 +15,13 @@ class ApplicationController < ActionController::Base
           |currency, amount| amount != 0 || currency == "usd" || currency == "btc"
         }.map{|currency, amount| currency + ": " + amount.to_s }.reduce{|a,b| a+" "+b}
       else
-        flash[:error] = (info && info["error"]) || "something failed"
+        flash.now[:error] = (info && info["error"]) || "something failed"
       end
-    end
-    if !self.is_a?(PublicController) && !@credentials
-      flash[:notice] = "sign in first"
-      return redirect_to root_url
+    else
+      if is_a?(PrivateController)
+        flash.now[:notice] = "sign in first"
+        return redirect_to root_url
+      end
     end
   end
   def init_ticker

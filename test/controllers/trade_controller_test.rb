@@ -24,8 +24,8 @@ class TradeControllerTest < ActionController::TestCase
     session[:bcmaster] = {
       apikey: "YACSECCW-SXC6EV2I-CF679EYB-PQ3NKI93-PENNC1UM",
       secret: "7876863e49c7ba7ac9dba285e9e6313e4b601aecfaab03b6c9704efa56f8f6de" }
-    post :create_order, {id: "trade-form", commit: "Trade"}
-    assert_equal "all fields are required", flash[:error]
+    post :create_order, {id: "trade-form", submit: "Trade"}
+    assert flash[:error]
   end
   test "valid order with no money should flash error" do
     session[:bcmaster] = {

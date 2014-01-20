@@ -1,4 +1,4 @@
-class TradeController < ApplicationController
+class TradeController < PrivateController
 
   def open_orders
     @title = "Open Orders"
@@ -16,15 +16,14 @@ class TradeController < ApplicationController
   end
   
   def create_order
-    return flash[:error] = "api-key does not have trade permission" if @rights && @rights["trade"] != 1
-    if (pair=params[:pair]) && (type=params[:type]) && (rate=params[:rate]) && (amount=params[:amount])
-      if (result = @trade.Trade(pair: pair, type: type, rate: rate, amount: amount))["success"] == 1
+    flash_no_trade_permission && return
+    if params[:commit]
+      if (result = @trade.Trade(order_params))["success"] == 1
         flash.now[:notice] = result
         return redirect_to open_orders_url
+      else
+        flash.now[:error] = result && result["error"] || "all fields are required"
       end
-    end
-    if params[:commit]
-      flash.now[:error] = result && result["error"] || "all fields are required"
     end
   end
 
@@ -44,5 +43,13 @@ class TradeController < ApplicationController
       flash.now[:error] = (result && result["error"]) || "something failed"
     end
     render :index
+  end
+  
+  private
+  def order_params
+    params.permit(:pair, :type, :rate, :amount)
+  end
+  def flash_no_trade_permission
+    flash.now[:error] = "api-key does not have trade permission" if @rights && @rights["trade"] != 1
   end
 end

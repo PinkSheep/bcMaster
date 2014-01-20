@@ -24,4 +24,7 @@ class MainController < PublicController
     #zu implementieren: Verschlüsselung des secret keys, bevor der Key in die Session gespeichert wird
     session[:bcmaster] = {apikey: key, secret: secret}
   end
+  def login_params
+    params.require(:login, :password)
+  end
 end
