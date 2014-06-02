@@ -1,3 +1,5 @@
+see https://github.com/kressi/bcMaster for the finnished project.
+
 bcMaster
 ========
 
